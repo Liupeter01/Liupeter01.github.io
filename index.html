@@ -2,257 +2,754 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonathan Smith</title>
-    <link rel="icon" href="icon.png">
+    <title>Jonathan Liu — GPU & Graphics & HPC Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/26f3f67a65.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <script src="javascript.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #16161f;
+            --bg-card-hover: #1c1c28;
+            --text-primary: #e8e6e3;
+            --text-secondary: #8a8a9a;
+            --text-dim: #555566;
+            --accent: #64ffda;
+            --accent-dim: rgba(100, 255, 218, 0.08);
+            --accent-glow: rgba(100, 255, 218, 0.15);
+            --orange: #ff6b35;
+            --purple: #a78bfa;
+            --blue: #60a5fa;
+            --border: rgba(255, 255, 255, 0.06);
+            --font-display: 'Outfit', sans-serif;
+            --font-mono: 'DM Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Grid background */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: 80px 0;
+        }
+
+        .hero-label {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 86px);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.4s;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--blue) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-summary {
+            max-width: 640px;
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .hero-links a {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-links a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            transform: translateY(-2px);
+        }
+
+        .hero-links a svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 1.2s;
+        }
+
+        .scroll-indicator span {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        /* ── Section Titles ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── Skills Strip ── */
+        .skills-section {
+            padding: 60px 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-category {
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            border-color: rgba(100, 255, 218, 0.2);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .skill-category h4 {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .skill-category p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ── Projects ── */
+        .projects-section {
+            padding: 100px 0;
+        }
+
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin-bottom: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            border-color: rgba(100, 255, 218, 0.15);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 40px var(--accent-glow);
+            transform: translateY(-4px);
+        }
+
+        .project-info {
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .project-name {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .project-tags span {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent);
+            padding: 4px 12px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 20px;
+            background: var(--accent-dim);
+        }
+
+        .project-highlights {
+            list-style: none;
+            padding: 0;
+        }
+
+        .project-highlights li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 8px;
+            font-weight: 300;
+        }
+
+        .project-highlights li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .project-visual {
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-visual::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, transparent 40%, var(--accent-dim) 100%);
+            pointer-events: none;
+        }
+
+        .project-icon {
+            font-size: 120px;
+            opacity: 0.15;
+            font-weight: 800;
+            color: var(--accent);
+            font-family: var(--font-mono);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent);
+            text-decoration: none;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            gap: 12px;
+        }
+
+        .project-link svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* Alternate card layout */
+        .project-card:nth-child(even) {
+            direction: rtl;
+        }
+        .project-card:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        /* ── Contact ── */
+        .contact-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .contact-links a {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 12px 28px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-dim);
+            transform: translateY(-2px);
+        }
+
+        .contact-links a.primary-btn {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+            font-weight: 500;
+        }
+
+        .contact-links a.primary-btn:hover {
+            background: transparent;
+            color: var(--accent);
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .container { padding: 0 24px; }
+            .hero h1 { font-size: 40px; letter-spacing: -1px; }
+            .project-card { grid-template-columns: 1fr; }
+            .project-card:nth-child(even) { direction: ltr; }
+            .project-visual { min-height: 160px; }
+            .hero-links { flex-direction: column; }
+            .contact-links { flex-direction: column; align-items: center; }
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media print {
+            body { background: #fff; color: #111; }
+            .grid-bg, body::before, .scroll-indicator { display: none; }
+            .project-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+        }
+    </style>
 </head>
 <body>
-    <div class="page">
-        <div class="modal">
-            <div class="container">
-                <div class="modal-header">
-                    Hi! Thanks for taking a look at my CV.
-                </div>
-                <div class="text">
-                    This CV was created using HTML, CSS and JavaScript. If you interact
-                    with different sections of the document, it will expand to
-                    show you more information! You can also print this webpage, and
-                    it should render as a well-proportioned A4 document without all
-                    of these other bells and whistles.
-                </div>
-                <div class="buttons">
-                    <button class="print" onClick="window.print()">Print</button>
-                    <button class="close">Close</button>
-                </div>
-            </div>
-        </div>
-        <div class="page-inner">
-            <div class="header entry" id="header">
-                <div class="three-panel">
-                    <div class="left">
-                        <i class="fa-solid fa-phone" id="icon"></i>
-                        04XXXXXXXX
-                        <br>
-                        <i class="fa-solid fa-at" id="icon"></i>
-                        <a href="mailto:Liupeter012001@gmail.com">xxxx@gmail.com</a>
-                    </div>
-                    <div class="center">
-                        <h1>Jonathan Smith</h1>
-                    </div>
-                    <div class="right">
-                        <a href="https://www.linkedin.com/in/jonathan-smith-501b77288/" target="_blank" rel="noopener noreferrer">
-                            https://www.linkedin.com/
-                        </a>
-                        <i class="fa-brands fa-linkedin" id="icon"></i>
-                        <br>
-                        <a href="https://www.github.com/Liupeter01" target="_blank" rel="noopener noreferrer">
-                            github.com/Liupeter01
-                        </a>
-                        <i class="fa-brands fa-github" id="icon"></i>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="objective">
-                <p>
-                <div class="skills" id="obj">
-                    <span>Concurrent Programming</span>
-                    <span>C/C++</span>
-                    <span>Express.js</span>
-                    <span>JavaScript(NodeJS)</span>
-                    <span>Linux</span>
-                    <span>Git</span>
-                    <span>CI/CD</span>
-                    <span>OpenGL</span>
-                    <span>UEFI</span>
-                    <span>Boost</span>
-                    <span>Assembly Language(Arm)</span>
-                    <span>AWS</span>
-		    <span>Qt</span>
-                </div>
-                </p>
-                <p>
-                   Software Engineer with strong expertise in C++ (C++17/20), high-performance computing, and low-latency system optimization. My experience spans SIMD-based rendering pipelines, software rasterization, AVX2-optimized computation, multithreading with TBB/OpenMP, and distributed systems using gRPC and Boost.Asio.
+    <div class="grid-bg"></div>
 
-Recently, I’ve been focusing on real-time graphics systems, custom rendering engines, and software rasterizers optimized for both CPU and GPU pipelines. My work includes developing high-performance data structures for sparse grid rendering and optimizing rasterization routines leveraging SIMD instructions for maximum computational throughput.
-
-In addition to my experience with HPC systems, federated learning frameworks, and multi-threaded distributed services, I'm deeply interested in graphics rendering engines, real-time paint systems. I'm actively building expertise in low-latency, tile-based rendering architectures and shader programming to push modern hardware to its limits.
-
-Passionate about graphics, rendering, and performance engineering.
-                </p>
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-label">GPU · Graphics · High-Performance Computing</div>
+            <h1>
+                Jonathan Smith<br>
+                <span class="gradient-text">Graphics &amp; Systems<br>Engineer</span>
+            </h1>
+            <p class="hero-summary">
+                Software engineer specialising in GPU programming, real-time rendering, and low-latency system optimisation. 
+                I build high-performance rendering engines, CUDA compute kernels, and systems-level infrastructure — 
+                from Vulkan pipelines and warp-synchronous GPU algorithms to SIMD-optimised CPU rasterisers.
+            </p>
+            <div class="hero-links">
+                <a href="https://github.com/Liupeter01" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/jonathan-smith-501b77288/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
             </div>
-            <div class="section" id="education">
-                <h2>EDUCATION</h2>
-                <hr>
-                <div class="entry" id="bsci">
-                    <div class="two-panel">
-                        <div class="left">
-                            <strong>Master of Computer Science</strong>
-                            <br>
-                            <i>Computer Science</i>
-                        </div>
-                        <div class="right">
-                            <strong>2023 — present</strong>
-                            <br>
-                            <i>The University of Sydney</i>
-                        </div>
-                    </div>
-                </div>
+            <div class="scroll-indicator">
+                <span>Projects</span>
+                <div class="scroll-line"></div>
             </div>
-            <div class="section" id="experience">
-                <h2>EXPERIENCE</h2>
-                <hr>
-                <div class="entry" id="syncs">
-                    <div class="three-panel">
-                        <div class="left">
-                            <strong>Software Engineer</strong>
-                        </div>
-                        <div class="center">
-                            <strong>CognixAI </strong>
-                        </div>
-                        <div class="right">
-                            <strong>12/2024-03/2025</strong>
-                        </div> 
-                    </div>
-                    <ul>
-                        <li>Designed and facilitated backend services using Go and Javascript, supporting RESTful APIs and internal tools that streamlined development workflows.
-                        <li>Launched CI/CD pipelines with AWS Lambda, ECS, and GitHub Actions, achieving 2+ weekly releases with automated testing and safe rollback support.
-			<li>Automated routine data ingestion and updates via SQL stored procedures and Python scripts, improving availability and reliability for 50+ daily users.
-                    </ul>  
+        </section>
+
+        <!-- Skills -->
+        <section class="skills-section">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Core Expertise</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>GPU & Graphics</h4>
+                    <p>Vulkan, OpenGL, GLSL, CUDA, Render Pipelines, Path Tracing, Ray Tracing, Rasterisation</p>
                 </div>
-                <div class="entry" id="syncs">
-                    <div class="three-panel">
-                        <div class="left">
-                            <strong>Software Engineer</strong>
-                        </div>
-                        <div class="center">
-                            <strong> Internet 2.0 </strong>
-                        </div>
-                        <div class="right">
-                            <strong>10/2024-12/2024</strong>
-                        </div> 
-                    </div>
-                    <ul>
-                        <li>Integrated AI models into production via gRPC streaming, enabling real-time multi-client synchronization with strong consistency guarantees.
-                        <li>Built end-to-end CI/CD workflows using GitHub Actions, ensuring reliable model versioning, testing, and deployment in a distributed setup.
-			<li>Applied TDD and unit testing practices to validate AI components and maintain stability in real-time backend systems.
-                    </ul>  
+                <div class="skill-category">
+                    <h4>Languages</h4>
+                    <p>C++17/20 (primary), C, Python, ARM Assembly</p>
                 </div>
-		     <div class="entry" id="syncs">
-                    <div class="three-panel">
-                        <div class="left">
-                            <strong>Software Engineer</strong>
-                        </div>
-                        <div class="center">
-                            <strong>SUIRUI</strong>
-                        </div>
-                        <div class="right">
-                            <strong>09/2022-08/2024</strong>
-                        </div> 
-                    </div>
-                    <ul>
-			<li>Managed a multi-threaded messaging protocol for 8k+ concurrent users within multi-threaded distributed systems; wrote 50+ TDD-based tests and used Valgrind and GDB for debugging and memory leak detection.
-                        <li>Launched refactoring of  legacy C modules into C++17 components with STL and Boost, and introduced Rust in safety-critical paths to improve memory safety and concurrency.
-                         <li>Led and designed the libHPC high-performance computing library, implementing SIMD-specialized sparse data structures with memory layout redesign and SSE/AVX2 vectorization, achieving up to 3× speedup in real-time media pipelines.
+                <div class="skill-category">
+                    <h4>HPC & Perf</h4>
+                    <p>SIMD (SSE/AVX2), TBB, OpenMP, Lock-Free, Warp-Level Primitives, perf, Nsight</p>
                 </div>
-	         <div class="entry" id="syncs">
-                    <div class="three-panel">
-                        <div class="left">
-                            <strong>Software Engineer</strong>
-                        </div>
-                        <div class="center">
-                            <strong>North China University of Technology</strong>
-                        </div>
-                        <div class="right">
-                            <strong>03/2023-06/2023</strong>
-                        </div> 
-                    </div>
-                    <ul>
-			<li>Ported the UEFI framework to Raspberry Pi 4B using C for embedded systems, developing bare-metal startup routines and integrating ARM Cortex-M support with memory-efficient code. 
-                        <li>Integrated a lightweight MQTT library into the bare-metal UEFI environment, enabling the Raspberry Pi to control peripheral GPIO and perform LAN-based telemetry and command dispatch via a lightweight message broker.
-                         <li>Designed and facilitated a QEMU-based virtual UEFI environment for firmware debugging and validation, applying TDD techniques in simulated boot stages using assertion macros.
-                    </ul>  
-                </div>
-		  <div class="entry" id="syncs">
-                    <div class="three-panel">
-                        <div class="left">
-                            <strong>C++ Developer</strong>
-                        </div>
-                        <div class="center">
-                            <strong>Beihang University</strong>
-                        </div>
-                        <div class="right">
-                            <strong>01/2022–01/2023 </strong>
-                        </div> 
-                    </div>
-                    <ul>
-			<li>Collaborated a 3D rendering simulation engine using C++17 and GPU acceleration, integrating Conventional Rasterization, Real-time Ray Tracing, and Offline Path Tracing systems, supporting both interactive and high-fidelity rendering workflows.
-			<li>Developed CUDA kernels (e.g., matrix transpose, ray-triangle intersection, GEMM) with shared memory and warp-level optimizations, using linear algebra and trigonometry to achieve 12× speedup in computational geometry workloads.
-			<li>Achieved a 20 FPS boost by integrating SIMD (SSE/AVX2) vectorization and TBB-based multithreading, implementing CPU optimization and parallelism techniques to conduct performance optimization.
-                    </ul>  
+                <div class="skill-category">
+                    <h4>Systems</h4>
+                    <p>Linux, Boost.Asio, gRPC, Docker, AWS, CMake, GDB/LLDB, Valgrind</p>
                 </div>
             </div>
-            <div class="section" id="projects">
-                <h2>PROJECTS</h2>
-                <hr>
-                <div class="two-panel">
-                    <div class="left">
-                        <div class="entry" id="chattingdemo">
-                            <div class="two-panel">
-                                <strong>
-				Distributed Chat System Development</strong>
-                                <div class="skills">
-                                    <span>gRPC</span>
-                                    <span>C++</span>
-                                    <span>FFmpeg</span>
-                                    <span>Qt</span>				    
-                                    <span>Boost Asio</span>	
-				    <span>Proactor</span>
-                                </div>
-                        </div>
-<li>Designed a scalable real-time instant message system prototype, featuring an intuitive Qt UI and gRPC framework supported large-scale system integration, managing over 8,000 simultaneous connections while ensuring seamless communication for more than 10,000 users.
-<li>Impact: Built a distributed chat system handling 8,000+ connections and 10,000 users with optimized multithreading and resource management., CMake, gRPC, OpenGL, FFmpeg, STL, Boost, NodeJS, GLSL, Proactor
+        </section>
 
-                        </div>
-                    </div>
-                    <div class="right">
-                        <div class="entry" id="shiny">
-                            <div class="two-panel">
-                                <strong>Software Rasterizer</strong>
-                                <div class="skills">
-                                    <span>C++</span>
-                                    <span>Linear Algebra  </span>
-                                    <span>OpenCV</span>
-				    <span>STL</span>
-			            <span>glm</span>
-				    <span>Computer Graphics</span>
-                                </div>
-                            </div>
-<li>Authored a 3D rendering engine with Conventional Rasterization Framework, Real-time Ray Tracing System, and Offline Path Tracing System.  
-<li>Introduced advanced algorithms leveraging TBB and SIMD (SSE & AVX2), achieving a remarkable boost of 20 FPS while maintaining system stability under peak operational conditions.
-<li>Impact: Designed a high-performance Software-Rasterizer for both real-time (exceeding 60 FPS) and offline (1024 SPP) applications.., C++17, CMake, Computer Graphics, Eigen, Linear Algebra, Calculus, STL
+        <!-- Projects -->
+        <section class="projects-section" id="projects">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Projects</h2>
+                <div class="section-line"></div>
+            </div>
 
-                        </div>
+            <!-- Vulkan Platform -->
+            <div class="project-card">
+                <div class="project-info">
+                    <div class="project-label">Real-Time Rendering</div>
+                    <h3 class="project-name">Vulkan-Platform</h3>
+                    <p class="project-desc">
+                        A Vulkan 1.3 real-time rendering engine built from scratch, featuring multi-queue architecture, 
+                        timeline semaphore synchronisation, compute + graphics pipelines, GPU particle systems, 
+                        and dynamic rendering — designed for maximum GPU utilisation and minimal CPU overhead.
+                    </p>
+                    <div class="project-tags">
+                        <span>Vulkan 1.3</span>
+                        <span>C++17</span>
+                        <span>GLSL</span>
+                        <span>Compute Shaders</span>
+                        <span>Timeline Semaphores</span>
                     </div>
+                    <ul class="project-highlights">
+                        <li>Multi-queue command submission with compute and graphics pipeline coordination</li>
+                        <li>GPU particle system driven entirely by compute shaders</li>
+                        <li>Resource state machine with Nsight Graphics–validated synchronisation</li>
+                        <li>Dynamic rendering (VK_KHR_dynamic_rendering) eliminating render pass overhead</li>
+                    </ul>
+                    <a class="project-link" href="https://github.com/Liupeter01/VulkanPlatform" target="_blank" rel="noopener">
+                        View on GitHub
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
                 </div>
-                    </div>
+                <div class="project-visual">
+                    <div class="project-icon">VK</div>
                 </div>
             </div>
-        </div>
+
+            <!-- Software Rasterizer -->
+            <div class="project-card">
+                <div class="project-info">
+                    <div class="project-label">Offline Rendering</div>
+                    <h3 class="project-name">Software-Rasterizer</h3>
+                    <p class="project-desc">
+                        A CPU-side rendering engine combining conventional rasterisation, Whitted-style ray tracing, 
+                        and Monte Carlo path tracing with importance sampling. Optimised with AVX2/SSE vectorisation 
+                        and TBB multithreading for both real-time (60+ FPS) and offline (1024 SPP) workloads.
+                    </p>
+                    <div class="project-tags">
+                        <span>C++17</span>
+                        <span>Path Tracing</span>
+                        <span>AVX2/SSE</span>
+                        <span>TBB</span>
+                        <span>BVH Acceleration</span>
+                    </div>
+                    <ul class="project-highlights">
+                        <li>Monte Carlo path tracing with unbiased estimation and importance sampling</li>
+                        <li>BVH-accelerated ray intersection for interactive preview speeds</li>
+                        <li>SIMD-optimised rasterisation achieving 20+ FPS improvement</li>
+                        <li>Cache-aware memory layout and loop restructuring for CPU pipeline efficiency</li>
+                    </ul>
+                    <a class="project-link" href="https://github.com/Liupeter01/Software-Rasterizer" target="_blank" rel="noopener">
+                        View on GitHub
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-icon">RT</div>
+                </div>
+            </div>
+
+            <!-- libHPC -->
+            <div class="project-card">
+                <div class="project-info">
+                    <div class="project-label">High-Performance Computing</div>
+                    <h3 class="project-name">libHPC</h3>
+                    <p class="project-desc">
+                        A CUDA and C++ high-performance computing library featuring warp-synchronous algorithms, 
+                        hierarchical sparse grid frameworks, and GPU kernel profiling infrastructure. 
+                        Demonstrates design of latency-bounded, high-throughput compute kernels at scale.
+                    </p>
+                    <div class="project-tags">
+                        <span>CUDA</span>
+                        <span>C++17</span>
+                        <span>OpenMP</span>
+                        <span>TBB</span>
+                        <span>SIMD</span>
+                        <span>Lock-Free</span>
+                    </div>
+                    <ul class="project-highlights">
+                        <li>CUDA radix sort processing 500M elements in 360ms on RTX 3080 Ti (~1.39B elem/sec)</li>
+                        <li>Warp-synchronous algorithms with __match_any_sync histogram optimisation</li>
+                        <li>Hierarchical sparse 2D grid with lock-free, TBB, and dense composable node types</li>
+                        <li>~35% warp divergence reduction via SASS-level analysis and tiled shared memory</li>
+                    </ul>
+                    <a class="project-link" href="https://github.com/Liupeter01/libHPC" target="_blank" rel="noopener">
+                        View on GitHub
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-icon">∥</div>
+                </div>
+            </div>
+
+            <!-- Distributed IM -->
+            <div class="project-card">
+                <div class="project-info">
+                    <div class="project-label">Systems Programming</div>
+                    <h3 class="project-name">Distributed Instant Messaging</h3>
+                    <p class="project-desc">
+                        A low-latency, event-driven messaging system sustaining 8,000+ concurrent sessions 
+                        with jitter control, non-blocking I/O, explicit backpressure, and bounded queues — 
+                        built with Boost.Asio, gRPC, and Qt6.
+                    </p>
+                    <div class="project-tags">
+                        <span>C++17</span>
+                        <span>Boost.Asio</span>
+                        <span>gRPC</span>
+                        <span>Qt6</span>
+                        <span>Redis</span>
+                        <span>Docker</span>
+                    </div>
+                    <ul class="project-highlights">
+                        <li>Event-driven architecture with proactor pattern and bounded queue backpressure</li>
+                        <li>SQL latency optimised via EXPLAIN + optimizer trace for predictable throughput</li>
+                        <li>Deterministic regression harness with ASan, GDB, and concurrency stress testing</li>
+                        <li>Cross-platform reproducible builds across Linux, macOS, and Windows</li>
+                    </ul>
+                    <a class="project-link" href="https://github.com/Liupeter01" target="_blank" rel="noopener">
+                        View on GitHub
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="project-icon">⚡</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact-section">
+            <h2>Let's Talk</h2>
+            <p>
+                Actively seeking GPU software engineering and graphics roles. 
+                Open to opportunities in Shanghai and across the APAC region.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:Liupeter012001@gmail.com" class="primary-btn">Get in Touch</a>
+                <a href="https://github.com/Liupeter01" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://www.linkedin.com/in/jonathan-smith-501b77288/" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Built with HTML, CSS & JS — no frameworks, no dependencies.</p>
+        </footer>
     </div>
-    <div class="panel inactive">
-        <button id="close-panel"><i class="fa-solid fa-circle-xmark"></i></button>
-        <div class="panel-content">
 
-        </div>
-    </div>
+    <script>
+        // Intersection Observer for project card animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
-
