@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonathan Liu — GPU · Graphics · Systems</title>
+    <title>Jonathan Liu — Graphics &amp; Low-Latency Systems</title>
+    <meta name="description" content="Jonathan Liu's C++ portfolio: Vulkan rendering, CUDA, SIMD, lock-free concurrency and network systems. Focused on graphics and HFT systems programming roles.">
+    <meta name="theme-color" content="#08080c">
+    <meta property="og:title" content="Jonathan Liu — Graphics &amp; Low-Latency Systems">
+    <meta property="og:description" content="Rendering engines, concurrent C++ infrastructure and GPU computing. Exploring graphics and HFT systems engineering opportunities.">
+    <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Azeret+Mono:wght@300;400;500&family=Sora:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,8 +19,8 @@
             --bg-card: #121219;
             --bg-card-hover: #17171f;
             --text: #e4e2de;
-            --text-secondary: #86868f;
-            --text-dim: #4a4a55;
+            --text-secondary: #a3a3ad;
+            --text-dim: #93939f;
             --accent: #b4f0e0;
             --accent-warm: #f0c4b4;
             --accent-blue: #a8c8f0;
@@ -143,7 +148,7 @@
 
         .nav-links a {
             font-family: var(--mono);
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--text-dim);
@@ -180,7 +185,7 @@
 
         .hero-eyebrow {
             font-family: var(--mono);
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent);
@@ -211,7 +216,7 @@
         .hero-desc {
             max-width: 580px;
             font-size: 16px;
-            font-weight: 300;
+            font-weight: 400;
             color: var(--text-secondary);
             line-height: 1.9;
             opacity: 0;
@@ -321,7 +326,7 @@
 
         .section-idx {
             font-family: var(--mono);
-            font-size: 13px;
+            font-size: 14px;
             color: var(--accent);
             opacity: 0.6;
         }
@@ -382,7 +387,7 @@
 
         .skill-tile h4 {
             font-family: var(--mono);
-            font-size: 10px;
+            font-size: 12px;
             letter-spacing: 2.5px;
             text-transform: uppercase;
             color: var(--accent);
@@ -391,10 +396,10 @@
         }
 
         .skill-tile p {
-            font-size: 13.5px;
+            font-size: 16px;
             color: var(--text-secondary);
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* ═══════════════════════════════════
@@ -444,7 +449,7 @@
 
         .project-eyebrow {
             font-family: var(--mono);
-            font-size: 10px;
+            font-size: 12px;
             letter-spacing: 2.5px;
             text-transform: uppercase;
             color: var(--accent);
@@ -461,10 +466,10 @@
         }
 
         .project-text {
-            font-size: 14.5px;
+            font-size: 16px;
             color: var(--text-secondary);
             line-height: 1.85;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 24px;
         }
 
@@ -477,7 +482,7 @@
 
         .tag {
             font-family: var(--mono);
-            font-size: 10px;
+            font-size: 12px;
             letter-spacing: 0.5px;
             color: var(--accent);
             padding: 5px 12px;
@@ -492,13 +497,13 @@
         }
 
         .highlights li {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.75;
             padding-left: 18px;
             position: relative;
             margin-bottom: 6px;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         .highlights li::before {
@@ -622,7 +627,7 @@
             font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* ═══════════════════════════════════
@@ -648,10 +653,10 @@
 
         .contact p {
             color: var(--text-secondary);
-            font-size: 15px;
-            max-width: 460px;
+            font-size: 16px;
+            max-width: 620px;
             margin: 0 auto 44px;
-            font-weight: 300;
+            font-weight: 400;
             line-height: 1.8;
         }
 
@@ -672,7 +677,7 @@
 
         footer p {
             font-family: var(--mono);
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-dim);
             letter-spacing: 0.5px;
         }
@@ -728,46 +733,146 @@
             .project { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; opacity: 1; transform: none; }
             .fade-section { opacity: 1; transform: none; }
         }
+
+        /* Graphics + low-latency systems portfolio */
+        section, .project { scroll-margin-top: 110px; }
+        :focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+        .skip-link { position: fixed; top: 10px; left: 10px; z-index: 10000; padding: 12px 20px; background: var(--accent); color: var(--bg); transform: translateY(-160%); }
+        .skip-link:focus { transform: none; }
+        .nav-logo { display: flex; align-items: center; gap: 24px; font-size: 24px; }
+        .nav-specialty { font: 12px var(--mono); letter-spacing: 1px; color: var(--text-secondary); }
+        .hero { min-height: min(900px, 100svh); padding-top: 160px; padding-bottom: 120px; }
+        .hero-title { font-size: clamp(48px, 7.1vw, 90px); line-height: 1.06; }
+        .hero-title em { background: none; -webkit-text-fill-color: currentColor; color: var(--accent); }
+        .hero-desc { max-width: 680px; font-size: 18px; }
+        .hero-direction { max-width: 640px; color: var(--text-secondary); font-size: 16px; margin-top: 20px; }
+        .hero-direction strong { font-weight: 500; color: var(--text); }
+        .hero-actions { flex-wrap: wrap; margin-top: 32px; }
+        .section-head { margin-bottom: 40px; }
+        .focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+        .focus-panel { padding: 30px 0; border-top: 2px solid var(--accent); }
+        .focus-index { color: var(--accent); font: 12px var(--mono); letter-spacing: 1px; }
+        .focus-panel h3 { font: 36px/1.2 var(--serif); margin: 24px 0 16px; }
+        .focus-panel p { font-size: 16px; color: var(--text-secondary); line-height: 1.85; max-width: 460px; }
+        .focus-panel .project-cta { margin-top: 16px; font-size: 14px; }
+        .systems-focus { border-color: var(--accent-blue); }
+        .systems-focus .focus-index, .systems-focus .project-cta { color: var(--accent-blue); }
+        .skill-tile { padding: 24px 20px; }
+        .skill-tile h4 { letter-spacing: 1px; }
+        .highlights li { font-size: 14px; }
+        .tag { letter-spacing: 0; }
+        .btn { min-height: 46px; font-size: 14px; }
+        .project-cta { min-height: 44px; font-size: 14px; }
+        .nav-links a { display: inline-block; padding: 10px 0; }
+        .project, .fade-section { opacity: 1; transform: none; }
+        @media (max-width: 900px) {
+            .nav-specialty { display: none; }
+            .hero { min-height: auto; padding-top: 150px; }
+            .skills-row { gap: 12px; }
+            .project-body { padding: 36px 28px; }
+        }
+        @media (max-width: 540px) {
+            .wrap { padding: 0 20px; }
+            nav, nav.scrolled { padding: 12px 20px; }
+            .nav-logo { font-size: 21px; }
+            .nav-links { display: flex; gap: 16px; }
+            .nav-links li:first-child { display: none; }
+            .nav-links a { font-size: 12px; letter-spacing: 0; }
+            .hero { padding-top: 130px; padding-bottom: 70px; }
+            .hero-title { font-size: clamp(40px, 9vw, 52px); letter-spacing: -1px; }
+            .hero-eyebrow { letter-spacing: 1px; }
+            .hero-desc { font-size: 16px; }
+            .hero-actions .btn { justify-content: center; }
+            .scroll-cue { display: none; }
+            .section { padding: 60px 0; }
+            .section-head { gap: 12px; }
+            .section-rule { display: none; }
+            .focus-grid { grid-template-columns: 1fr; gap: 4px; }
+            .focus-panel h3 { font-size: 32px; }
+            .project-body { padding: 30px 22px; }
+            .contact { padding: 70px 0; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .hero-eyebrow, .hero-title, .hero-desc, .hero-actions, .scroll-cue { opacity: 1; transform: none; }
+        }
+
+        .performance-panel { width: 100%; padding: 40px 32px; position: relative; color: var(--accent); }
+        .project[data-accent="blue"] .performance-panel { color: var(--accent-blue); }
+        .project[data-accent="warm"] .performance-panel { color: var(--accent-warm); }
+        .metric-kicker { display: block; font: 12px/1.7 var(--mono); letter-spacing: 1px; margin-bottom: 28px; }
+        .metric-value { font: 76px/1.1 var(--serif); letter-spacing: -2px; white-space: nowrap; }
+        .metric-value > span { font: 28px var(--mono); margin-left: 8px; letter-spacing: -1px; }
+        .metric-caption { color: var(--text-secondary); font-size: 14px; line-height: 1.8; margin-top: 12px; }
+        .comparison { margin-top: 32px; }
+        .comparison-label { display: flex; justify-content: space-between; color: var(--text-secondary); font: 12px var(--mono); margin: 20px 0 9px; }
+        .comparison-track { height: 6px; background: rgba(255,255,255,.035); }
+        .comparison-track > span { display: block; height: 100%; }
+        .comparison-before { width: 100%; background: #6c7c81; }
+        .comparison-after { width: 1.099%; background: var(--accent); }
+        .metric-footnote { color: var(--text-secondary); font: 12px/1.8 var(--mono); margin-top: 24px; }
+        .metric-details { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 30px 0; padding-top: 24px; border-top: 1px solid var(--border-accent); }
+        .metric-details strong { display: block; font: 24px var(--serif); color: var(--text); }
+        .metric-details span { display: block; color: var(--text-secondary); font: 12px/1.8 var(--mono); margin-top: 8px; }
+        .pipeline { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+        .pipeline span { border: 1px solid currentColor; padding: 6px 8px; font: 12px/1.5 var(--mono); }
+        .simd-lanes { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; }
+        .simd-lanes span { border-top: 2px solid var(--accent); background: var(--accent-dim); padding: 10px 0; text-align: center; font: 12px var(--mono); }
+        .exception-levels { display: flex; align-items: center; gap: 20px; font: 56px var(--serif); padding: 16px 0; }
+        .exception-levels span:nth-child(2) { font-size: 28px; transform: rotate(-90deg); }
+        @media (max-width: 900px) { .performance-panel { padding: 32px 28px; max-width: 540px; } }
+        @media (max-width: 540px) { .performance-panel { padding: 32px 22px; } .metric-value { font-size: 64px; } }
+        @media print {
+            :root { --bg: #fff; --bg-raised: #fff; --bg-card: #fff; --text: #111; --text-secondary: #333; --text-dim: #444; --accent: #176253; --accent-blue: #234f78; --accent-warm: #7d422c; --border: #ccc; }
+            .hero { min-height: auto; padding: 36px 0; }
+            .hero-eyebrow, .hero-title, .hero-desc, .hero-actions { animation: none; opacity: 1; transform: none; }
+            .section, .contact { padding: 30px 0; }
+            .project { display: block; }
+            .project-aside { display: none; }
+            .project-body { padding: 20px; }
+            .focus-grid { break-inside: avoid; }
+        }
     </style>
 </head>
-<body>
+<body id="top">
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="atmosphere"></div>
-<div class="grain"></div>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
 <!-- Nav -->
-<nav id="nav">
-    <a href="#" class="nav-logo">JL</a>
+<nav id="nav" aria-label="Main navigation">
+    <a href="#top" class="nav-logo" aria-label="Jonathan Liu — home">Jonathan Liu<span class="nav-specialty">C++ / GRAPHICS / SYSTEMS</span></a>
     <ul class="nav-links">
-        <li><a href="#skills">Skills</a></li>
+        <li><a href="#skills">Focus</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
+        
         <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
 
-<div class="wrap">
+<main class="wrap" id="main">
 
     <!-- ══ Hero ══ -->
     <section class="hero">
-        <div class="hero-eyebrow">GPU · Graphics · High-Performance Systems</div>
+        <div class="hero-eyebrow">C++ programmer · Graphics &amp; systems</div>
         <h1 class="hero-title">
-            Jonathan Liu<br>
-            <em>Graphics &amp; Systems<br>Engineer</em>
+            Graphics &amp;<br><em>low-latency systems.</em>
         </h1>
         <p class="hero-desc">
-            I build high-performance rendering engines, CUDA compute kernels, and 
-            systems-level infrastructure — from Vulkan pipelines and warp-synchronous 
-            GPU algorithms to SIMD-optimised CPU rasterisers and lock-free concurrent systems.
+            I'm Jonathan Liu. I build rendering engines, GPU kernels and concurrent C++ infrastructure.
+            My work centres on data locality, explicit synchronisation and profiling the critical path.
         </p>
+        <p class="hero-direction">Focused on graphics engineering and systems programming for <strong>high-frequency trading.</strong></p>
         <div class="hero-actions">
             <a href="https://github.com/Liupeter01" target="_blank" rel="noopener" class="btn btn-primary">
-                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                 GitHub
             </a>
             <a href="#projects" class="btn btn-ghost">View Projects ↓</a>
         </div>
-        <div class="scroll-cue">
+        <div class="scroll-cue" aria-hidden="true">
             <div class="dot"></div>
             <div class="line"></div>
         </div>
@@ -777,8 +882,22 @@
     <section class="section fade-section" id="skills">
         <div class="section-head">
             <span class="section-idx">01</span>
-            <h2 class="section-label">Core Expertise</h2>
+            <h2 class="section-label">Two domains. Shared foundations.</h2>
             <div class="section-rule"></div>
+        </div>
+        <div class="focus-grid">
+            <article class="focus-panel">
+                <span class="focus-index">01 / GRAPHICS</span>
+                <h3>From pixels to pipelines.</h3>
+                <p>Real-time rendering, software rasterisation and GPU compute. I work across the CPU–GPU boundary, with attention to frame time, memory traffic and synchronisation.</p>
+                <a href="#vulkan" class="project-cta">Explore rendering projects <span aria-hidden="true">↗</span></a>
+            </article>
+            <article class="focus-panel systems-focus">
+                <span class="focus-index">02 / HFT SYSTEMS DIRECTION</span>
+                <h3>From events to execution.</h3>
+                <p>Bringing C++ concurrency, cache-aware programming and network I/O experience to low-latency trading systems. My current portfolio demonstrates the underlying systems work.</p>
+                <a href="#libhpc" class="project-cta">Explore systems projects <span aria-hidden="true">↗</span></a>
+            </article>
         </div>
         <div class="skills-row">
             <div class="skill-tile">
@@ -790,7 +909,7 @@
                 <p>C++17 (primary), C, Python, GLSL, Slang, CUDA C/C++, ARM Assembly</p>
             </div>
             <div class="skill-tile">
-                <h4>HPC &amp; Concurrency</h4>
+                <h4>Concurrency &amp; Memory</h4>
                 <p>SIMD (SSE/AVX2), TBB, OpenMP, std::atomic, Lock-Free, Warp Intrinsics, Boost.Asio</p>
             </div>
             <div class="skill-tile">
@@ -804,12 +923,12 @@
     <section class="section" id="projects">
         <div class="section-head fade-section">
             <span class="section-idx">02</span>
-            <h2 class="section-label">Selected Work</h2>
+            <h2 class="section-label">Engineering in practice</h2>
             <div class="section-rule"></div>
         </div>
 
         <!-- Vulkan Platform -->
-        <div class="project" data-accent="default">
+        <div class="project" data-accent="default" id="vulkan">
             <div class="project-body">
                 <div class="project-eyebrow">Real-Time Rendering</div>
                 <h3>Vulkan-Platform</h3>
@@ -833,84 +952,29 @@
                 </ul>
                 <a class="project-cta" href="https://github.com/Liupeter01/Vulkan-Platform" target="_blank" rel="noopener">
                     View on GitHub
-                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
             </div>
             <div class="project-aside">
-                <div class="glyph">Vk</div>
-            </div>
+                <div class="performance-panel">
+        <span class="metric-kicker">VULKAN / FRAME TIME</span>
+        <p class="metric-value">4.66<span>ms</span></p>
+        <p class="metric-caption">After profiler-guided pipeline redesign</p>
+        <div class="comparison" aria-label="Frame time reduced from 424 milliseconds to 4.66 milliseconds">
+            <div class="comparison-label"><span>Before</span><span>424 ms</span></div>
+            <div class="comparison-track"><span class="comparison-before"></span></div>
+            <div class="comparison-label"><span>After</span><span>4.66 ms</span></div>
+            <div class="comparison-track"><span class="comparison-after"></span></div>
         </div>
-
-        <!-- libHPC -->
-        <div class="project" data-accent="blue">
-            <div class="project-body">
-                <div class="project-eyebrow">High-Performance Computing</div>
-                <h3>libHPC</h3>
-                <p class="project-text">
-                    A CUDA and C++ HPC library with warp-synchronous algorithms, lock-free concurrency, 
-                    and CPU memory hierarchy benchmarks — profiled end-to-end with NVTX, 
-                    Nsight Compute, and perf flame graphs.
-                </p>
-                <div class="tag-row">
-                    <span class="tag">CUDA</span>
-                    <span class="tag">C++17</span>
-                    <span class="tag">Lock-Free</span>
-                    <span class="tag">SIMD</span>
-                    <span class="tag">Nsight</span>
-                </div>
-                <ul class="highlights">
-                    <li>GPU radix sort: 500M keys in 360ms / 1.39B keys/s on RTX 3080 Ti</li>
-                    <li>ABA-safe lock-free MPMC queue — 48-bit VA + 16-bit refcount in single atomic</li>
-                    <li>Cache-tiling 6.4× and false-sharing elimination 5.6× speedups on i7-12800HX</li>
-                    <li>Full NVTX instrumentation with Nsight Compute multi-pass metrics</li>
-                </ul>
-                <a class="project-cta" href="https://github.com/Liupeter01/libHPC" target="_blank" rel="noopener">
-                    View on GitHub
-                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
-            </div>
-            <div class="project-aside">
-                <div class="glyph">∥</div>
-            </div>
-        </div>
-
-        <!-- Distributed IM -->
-        <div class="project" data-accent="warm">
-            <div class="project-body">
-                <div class="project-eyebrow">Systems &amp; Concurrency</div>
-                <h3>Distributed IM System</h3>
-                <p class="project-text">
-                    A microservice messaging platform with Boost.Asio TCP long-connections, 
-                    gRPC service mesh, custom TLV binary protocol with compile-time safety constraints, 
-                    and stress-tested to 50K concurrent connections.
-                </p>
-                <div class="tag-row">
-                    <span class="tag">Boost.Asio</span>
-                    <span class="tag">gRPC</span>
-                    <span class="tag">C++17</span>
-                    <span class="tag">Redis</span>
-                    <span class="tag">Docker</span>
-                </div>
-                <ul class="highlights">
-                    <li>50K concurrent connections, ~60K msg/s, p99 5.4ms RTT on loopback</li>
-                    <li>17.9M messages with 100% delivery — zero message loss</li>
-                    <li>Custom SFINAE-constrained TLV serialization across Qt + Boost stacks</li>
-                    <li>ASan + GDB regression harness for concurrency stress testing</li>
-                </ul>
-                <a class="project-cta" href="https://github.com/Liupeter01" target="_blank" rel="noopener">
-                    View on GitHub
-                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
-            </div>
-            <div class="project-aside">
-                <div class="glyph">⚡</div>
+        <p class="metric-footnote">Same project. A shorter critical path.</p>
+    </div>
             </div>
         </div>
 
         <!-- Software Rasterizer -->
         <div class="project" data-accent="default">
             <div class="project-body">
-                <div class="project-eyebrow">Offline Rendering</div>
+                <div class="project-eyebrow">CPU Rasterisation &amp; Path Tracing</div>
                 <h3>Software-Rasterizer</h3>
                 <p class="project-text">
                     A CPU rendering pipeline combining AVX2 rasterisation, Whitted-style ray tracing, 
@@ -932,11 +996,96 @@
                 </ul>
                 <a class="project-cta" href="https://github.com/Liupeter01/Software-Rasterizer" target="_blank" rel="noopener">
                     View on GitHub
-                    <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
             </div>
             <div class="project-aside">
-                <div class="glyph">RT</div>
+                <div class="performance-panel">
+        <span class="metric-kicker">CPU / SOFTWARE RASTERISATION</span>
+        <p class="metric-value">17.1<span>ms</span></p>
+        <p class="metric-caption">Median frame time · 1,000-frame benchmark</p>
+        <div class="metric-details"><div><strong>1024²</strong><span>resolution</span></div><div><strong>~6K</strong><span>triangles</span></div></div>
+        <div class="simd-lanes" aria-label="Eight fragments per AVX2 vector"><span aria-hidden="true">0</span><span aria-hidden="true">1</span><span aria-hidden="true">2</span><span aria-hidden="true">3</span><span aria-hidden="true">4</span><span aria-hidden="true">5</span><span aria-hidden="true">6</span><span aria-hidden="true">7</span></div>
+        <p class="metric-footnote">8 fragments per AVX2 vector</p>
+    </div>
+            </div>
+        </div>
+
+        <!-- libHPC -->
+        <div class="project" data-accent="blue" id="libhpc">
+            <div class="project-body">
+                <div class="project-eyebrow">Concurrency · Memory · Compute</div>
+                <h3>libHPC</h3>
+                <p class="project-text">
+                    A CUDA and C++ HPC library with warp-synchronous algorithms, lock-free concurrency, 
+                    and CPU memory hierarchy benchmarks. The CPU work explores contention, data locality and atomic operations; GPU kernels are profiled with NVTX, 
+                    Nsight Compute, and perf flame graphs.
+                </p>
+                <div class="tag-row">
+                    <span class="tag">CUDA</span>
+                    <span class="tag">C++17</span>
+                    <span class="tag">Lock-Free</span>
+                    <span class="tag">SIMD</span>
+                    <span class="tag">Nsight</span>
+                </div>
+                <ul class="highlights">
+                    <li>GPU radix sort: 500M keys in 360ms / 1.39B keys/s on RTX 3080 Ti</li>
+                    <li>ABA-safe lock-free MPMC queue — 48-bit VA + 16-bit refcount in single atomic</li>
+                    <li>Cache-tiling 6.4× and false-sharing elimination 5.6× speedups on i7-12800HX</li>
+                    <li>Full NVTX instrumentation with Nsight Compute multi-pass metrics</li>
+                </ul>
+                <a class="project-cta" href="https://github.com/Liupeter01/libHPC" target="_blank" rel="noopener">
+                    View on GitHub
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+            <div class="project-aside">
+                <div class="performance-panel">
+        <span class="metric-kicker">CUDA / RADIX SORT</span>
+        <p class="metric-value">1.39<span>B</span></p>
+        <p class="metric-caption">Keys per second · RTX 3080 Ti</p>
+        <div class="metric-details"><div><strong>500M</strong><span>keys sorted</span></div><div><strong>360 ms</strong><span>sort time</span></div></div>
+        <div class="pipeline" aria-label="Related CPU work: atomics, memory layout, profiling"><span>Atomics</span><span>Memory</span><span>Profiling</span></div>
+    </div>
+            </div>
+        </div>
+
+        <!-- Distributed IM -->
+        <div class="project" data-accent="warm">
+            <div class="project-body">
+                <div class="project-eyebrow">Network I/O · Tail Latency</div>
+                <h3>Distributed IM System</h3>
+                <p class="project-text">
+                    A microservice messaging platform with Boost.Asio TCP long-connections, 
+                    gRPC inter-service communication, custom TLV binary protocol with compile-time safety constraints, 
+                    and stress-tested to 50K concurrent connections.
+                </p>
+                <div class="tag-row">
+                    <span class="tag">Boost.Asio</span>
+                    <span class="tag">gRPC</span>
+                    <span class="tag">C++17</span>
+                    <span class="tag">Redis</span>
+                    <span class="tag">Docker</span>
+                </div>
+                <ul class="highlights">
+                    <li>50K concurrent connections, ~60K msg/s, p99 5.4ms RTT on loopback</li>
+                    <li>No message loss observed in a 17.9M-message test</li>
+                    <li>Custom SFINAE-constrained TLV serialization across Qt + Boost stacks</li>
+                    <li>ASan + GDB regression harness for concurrency stress testing</li>
+                </ul>
+                <a class="project-cta" href="https://github.com/Liupeter01" target="_blank" rel="noopener">
+                    Browse GitHub profile
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+            <div class="project-aside">
+                <div class="performance-panel">
+        <span class="metric-kicker">NETWORK I/O / TAIL LATENCY</span>
+        <p class="metric-value">5.4<span>ms</span></p>
+        <p class="metric-caption">p99 round-trip time · loopback test</p>
+        <div class="metric-details"><div><strong>50K</strong><span>connections</span></div><div><strong>~60K</strong><span>messages / sec</span></div></div>
+        <p class="metric-footnote">No message loss in the 17.9M-message test.</p>
+    </div>
             </div>
         </div>
 
@@ -964,7 +1113,13 @@
                 </ul>
             </div>
             <div class="project-aside">
-                <div class="glyph">Aₓ</div>
+                <div class="performance-panel">
+        <span class="metric-kicker">ARMv8-A / EXECUTION LEVELS</span>
+        <div class="exception-levels"><span>EL1</span><span aria-hidden="true">↓</span><span>EL0</span></div>
+        <p class="metric-caption">Kernel → user-space transition</p>
+        <div class="pipeline" aria-label="Kernel mechanisms"><span>MMU</span><span>IRQ</span><span>Context</span></div>
+        <p class="metric-footnote">Cortex-A72 · Raspberry Pi 4B</p>
+    </div>
             </div>
         </div>
     </section>
@@ -973,12 +1128,12 @@
     <section class="contact fade-section" id="contact">
         <h2>Let's <em>talk</em></h2>
         <p>
-            Seeking GPU software engineering, graphics, and systems roles. 
+            Seeking graphics engineering and C++ systems programming roles, including low-latency infrastructure for HFT. 
             Open to opportunities in Shanghai and across the APAC region.
         </p>
         <div class="contact-row">
             <a href="https://github.com/Liupeter01" target="_blank" rel="noopener" class="btn btn-primary">
-                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                 GitHub
             </a>
             <a href="#projects" class="btn btn-ghost">Back to Projects ↑</a>
@@ -986,10 +1141,10 @@
     </section>
 
     <footer>
-        <p>Jonathan Liu — 2026. Built with HTML &amp; CSS, no dependencies.</p>
+        <p>Jonathan Liu · Graphics &amp; Low-Latency Systems · 2026</p>
     </footer>
 
-</div>
+</main>
 
 <script>
     // Nav scroll state
@@ -998,14 +1153,7 @@
         nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 
-    // Intersection Observer for fade-in
-    const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) e.target.classList.add('visible');
-        });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.project, .fade-section').forEach(el => io.observe(el));
 </script>
 
 </body>
